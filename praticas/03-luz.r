@@ -166,7 +166,7 @@ ds_cars_alternativa[1]
 # criar. O dataloader() recebe o dataset() e o tamanho do lote (batch_size).
 # O tamanho do lote é o número de itens que serão retornados a cada iteração.
 
-dl_cars <- dataloader(ds_cars, batch_size = 10, shuffle = TRUE)
+dl_cars <- dataloader(ds_mtcars, batch_size = 10, shuffle = TRUE)
 
 length(ds_cars)
 length(dl_cars)

@@ -115,9 +115,8 @@ t[1,,]
 (primeira_pagina <- t[1, ..])
 
 # Indexação: Acessando um elemento específico
-# Exemplo: acessando o elemento na primeira linha, segunda coluna da
-# primeira página
-(elemento <- t[1, 2, ..])
+# Exemplo: acessando o elemento da segunda linha e terceira coluna da primeira página
+(elemento <- t[1, 2, 3])
 
 # Combinações de slicing e indexação
 # Exemplo: selecionando a primeira e a terceira coluna da segunda página
