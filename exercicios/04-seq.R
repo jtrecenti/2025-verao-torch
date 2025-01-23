@@ -1,3 +1,47 @@
+#### Exercício Aula 04 ####
+
+# Mude a seed se quiser!
+library(torch)
+library(torchvision)
+library(luz)
+torch_manual_seed(1)
+
+# Considere o dataset "sunspot.month"
+
+?sunspot.month
+
+sunspot_df <- data.frame(
+  sunspots = as.numeric(sunspot.month)
+)
+
+start_date <- as.Date("1749-01-01")
+sunspot_df$date <- seq.Date(start_date, by = "month", length.out = length(sunspot.month))
+sunspot_df$date <- format(sunspot_df$date, "%b-%Y")
+
+head(sunspot_df)
+
+#### Item a) ####
+
+# Usando o sunspot_df, separe em treino, validação e teste
+# Crie o dataset e o dataloader
+
+#### Item b) ####
+
+# Crie um RNN baseado no "Exemplo séries temporais" da aula
+# Use o Learning Rate finder
+
+#### Item c) ####
+
+# Repita o item anterior usando LSTM
+# Compare
+
+#### Item b) ####
+
+# Repita o item anterior usando GRU
+# Compare
+
+## ==============================================================================
+
 ## OBS: Lista gerada pelo chatgpt. Pode conter erros
 
 # Exercício 1: Criação e Uso de Embeddings

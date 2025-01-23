@@ -1,3 +1,46 @@
+#### Exercício Aula 02 ####
+
+# Mude a seed se quiser!
+library(torch)
+torch_manual_seed(1)
+
+# Considere o dataset "trees"
+
+View(trees)
+?trees
+
+#### Item a) ####
+
+# Com a base trees, considere como resposta a variável "Volume"
+# Implemente uma regressão linear múltipla com autograd
+
+# Refaça mudando o optimizer, learning rate, e o número de interações
+# Compare
+
+# Compare os resultados com a solução dada por
+# lm(Volume ~ Height + Girth, data=trees)
+
+#### Item b) ####
+
+# Considere como resposta a variável "Volume"
+# Implemente um MLP simples
+
+# Refaça mudando o optimizer, learning rate, e o número de camadas ocultas
+# (aumente a profundidade da rede)
+# Compare
+
+# Qual modelo ficou melhor, a regressão linear ou a rede neural?
+
+#### Item c) ####
+
+# Refaça os itens anteriores considerando o dataset escalonado
+trees_scale <- scale(trees) |> as.data.frame()
+
+# Compare e decida qual modelo ficou melhor
+
+# ============================================================================
+
+
 # Exercício Teórico 1: Entendimento da Regressão Linear
 # Explique, com suas próprias palavras, o que a equação
 # y = β0 + β1 * x + ε representa no contexto da regressão linear.

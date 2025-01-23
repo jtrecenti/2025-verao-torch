@@ -1,3 +1,68 @@
+#### Exercício Aula 01 ####
+
+# Mude a seed se quiser!
+library(torch)
+
+torch_manual_seed(1)
+
+# Considere o tensor
+
+(tx <- torch_randn(c(3,4,1)))
+
+#### Item a) ####
+
+# Qual a dimensão do vetor criado?
+
+# Escreva um vetor ty que é funcão de tx
+
+#### Item b) ####
+
+# Seja
+
+(ty <- 5*tx$view(c(3,1,4)) + torch_randn(3,1,4))
+
+# Redimensione tx e ty de pelo menos três maneiras 
+# (use view, reshape, squeeze e unsqueeze)
+
+# Qual será o resultado de squeeze e unsqueeze aplicado nos vetores originais?
+
+#### Item c) ####
+
+# Acesse segunda e terceira linha da segunda página de tx
+
+# Acesse primeira e última coluna da primeira página de ty
+
+#### Item d) ####
+
+# Qual será a dimensão de tx + ty?
+
+# Qual será a dimensão de tx[1,..] + ty[1,..]?
+
+# Seja
+
+(tx_un <- tx$squeeze())
+(ty_un <- ty$squeeze()$t())
+
+# O que acontece se tentarmos fazer tx_un + ty_un? Explique porquê.
+
+#### Item e) ####
+
+# Qual será a dimensão do produto matricial entre tx_un e ty_un?
+
+#### Item f) ####
+
+# Seja
+
+tx_matrix <- tx$flatten() |> as.matrix()
+(tx_flat <- model.matrix(~tx_matrix) |> torch_tensor())
+(ty_flat <- ty$flatten())
+
+# Obtenha o resultado da regressao linear com linalg_lstsq
+
+# Compare com o resultado de lm(as.matrix(ty_flat) ~ as.matrix(tx_flat))
+
+# ========================================================================
+
 # Exercício 1: Explorando Dimensões de Tensores
 # Considere um tensor criado com torch_tensor(1:12).
 # Qual seria a dimensão desse tensor?
