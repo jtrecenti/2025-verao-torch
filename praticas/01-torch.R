@@ -205,6 +205,7 @@ t_2d$unsqueeze(1)
 # Usando view para redimensionar o tensor
 # Isso falhará porque o tensor não é contíguo na memória
 
+
 tensor_nao_contiguo$view(c(9))
 tensor_nao_contiguo$reshape(c(9))
 
@@ -217,9 +218,6 @@ tensor_nao_contiguo$reshape(c(9))
 # Criando dois tensores de formas diferentes
 (t_a <- torch_rand(c(3, 1)))
 (t_b <- torch_rand(c(1, 4)))
-
-c(3, 4)
-c(3, 4)
 
 (t_a <- torch_arange(1,3)$view(c(3, 1)))
 

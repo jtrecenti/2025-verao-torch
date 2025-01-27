@@ -214,10 +214,10 @@ O `torch` é uma ferramenta de **computação científica**.
 
 ::: {.incremental}
 
-- Apresentar a notação básica do `torch`
-- Mostrar como usar o `torch` para ajustar modelos de regressão e outras operações matemáticas
+- Dominar a notação básica do `torch`
+- Utilizar o `torch` para ajustar modelos de regressão e outras operações matemáticas
 - Utilizar o pacote `luz` para ajustar modelos de redes neurais
-- Discutir sobre extensões do `torch` e perspectivas futuras
+- Saber buscar referências sobre extensões do `torch` e perspectivas futuras
 
 :::
 
@@ -339,11 +339,11 @@ Acesse: <https://posit.cloud> e faça sua conta.
 
 ![](img/qrcode_positcloud.png){width=30%}
 
-[Link de convite](https://posit.cloud/spaces/464933/join?access_code=j-5PlvLRJQROHu7Z8_qMmDsWFtBCzyXw5c9Mt0Rk)
+[Link de convite](https://posit.cloud/content/7432837)
 
 ## Exercícios
 
-Ao final das aulas 1-4, vamos liberar uma lista de exercícios.
+Para cada aula 1-4, liberamos uma lista de exercícios.
 
 Os exercícios **não são obrigatórios**
 
