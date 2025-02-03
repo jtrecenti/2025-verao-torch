@@ -325,15 +325,16 @@ fitted <- net |>
   ) |>
   luz::fit(
     train_dl,
-    epochs = 2,
+    epochs = 1,
     valid_data = valid_dl,
+    # minha gpu está bugada
     accelerator = luz::accelerator(cpu = TRUE)
   )
 
-preds <- predict(fitted, valid_dl)
+preds <- predict(fitted, valid_dl, accelerator = luz::accelerator(cpu = TRUE))
 preds$shape
 
-predict(fitted, valid_ds[1]$x$unsqueeze(1)) |>
+predict(fitted, valid_ds[1]$x$unsqueeze(1), accelerator = luz::accelerator(cpu = TRUE)) |>
   as.numeric() |>
   which.max()
 
