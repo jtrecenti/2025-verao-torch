@@ -153,6 +153,8 @@ cars_tensor <- torch_tensor(Xy)
 
 dim(X)
 dim(y)
+X$shape
+
 
 # Solução de regressão linear (mais na próxima aula)
 linalg_lstsq(X, y)$solution
@@ -337,12 +339,11 @@ for (i in seq_len(num_iterations)) {
 
 beta
 
+lm(as.matrix(y)~as.matrix(X)-1)
+
 ## GRANDE PARENTESES: HESSIANA
 
 # No torch para R, ainda não temos uma versão nativa de Hessiana.
-
-# Ver esse post aqui:
-# https://rgiordan.github.io/code/2022/04/01/rtorch_example.html
 
 # No entanto, existem otimizadores chamados "quasi-newton", que fazem
 # o cálculo do Hessiano de forma aproximada, usando apenas o gradiente.

@@ -10,10 +10,10 @@ cars_scale <- cars |>
 
 # dados em matriz
 cars_matrix <- model.matrix(~speed, data = cars_scale)
-Xy <- cbind(cars_matrix, cars_scale$dist)
+xy <- cbind(cars_matrix, cars_scale$dist)
 
 # dados em tensor
-cars_tensor <- torch_tensor(Xy)
+cars_tensor <- torch_tensor(xy)
 
 # dados que vamos usar na rede neural
 xx <- cars_tensor[, 2]$unsqueeze(2)
@@ -84,13 +84,13 @@ ggplot(cars_scale) +
 # install.packages("torchdatasets")
 
 ds <- torchvision::mnist_dataset("dados/", download = TRUE)
-ds$.getitem(1)
+ds$.getitem(3)
 ds[1]
 
 # Primeiro, vamos criar um dataset() a partir dos dados que já temos.
 # elementos necessários: initialize, length, .getitem
 
-ds <- dataset(
+ds_module <- dataset(
   name = "cars_dataset",
   initialize = function(da) {
     cars_scale <- da |>
@@ -100,10 +100,10 @@ ds <- dataset(
       )
     # dados em matriz
     cars_matrix <- model.matrix(~speed, data = cars_scale)
-    Xy <- cbind(cars_matrix, cars_scale$dist)
+    xy <- cbind(cars_matrix, cars_scale$dist)
 
     # dados em tensor
-    cars_tensor <- torch_tensor(Xy)
+    cars_tensor <- torch_tensor(xy)
 
     # dados que vamos usar na rede neural
     self$x <- cars_tensor[, 2]$unsqueeze(2)
@@ -117,9 +117,10 @@ ds <- dataset(
   }
 )
 
+# outro exemplo, com mtcars
 da <- mtcars
 
-ds_mtcars <- dataset(
+ds_mtcars_module <- dataset(
   name = "cars_dataset",
   initialize = function(da) {
     mtcars_scale <- da |>
@@ -147,9 +148,14 @@ ds_mtcars <- dataset(
   }
 )
 
-ds_mtcars <- ds_mtcars(mtcars)
+ds_mtcars <- ds_mtcars_module(mtcars)
 ds_mtcars$.getitem(1)
 ds_mtcars[1]
+
+
+# Agora, vamos criar um dataloader() a partir do dataset() que acabamos de
+# criar. O dataloader() recebe o dataset() e o tamanho do lote (batch_size).
+# O tamanho do lote é o número de itens que serão retornados a cada iteração.
 
 dl_mtcars <- dataloader(ds_mtcars, batch_size = 4, shuffle = TRUE)
 
@@ -162,14 +168,10 @@ dl_mtcars |>
 ds_cars_alternativa <- tensor_dataset(xx, yy)
 ds_cars_alternativa[1]
 
-# Agora, vamos criar um dataloader() a partir do dataset() que acabamos de
-# criar. O dataloader() recebe o dataset() e o tamanho do lote (batch_size).
-# O tamanho do lote é o número de itens que serão retornados a cada iteração.
 
-dl_cars <- dataloader(ds_mtcars, batch_size = 10, shuffle = TRUE)
-
-length(ds_cars)
-length(dl_cars)
+# voltando ao exemplo do cars
+ds_cars <- ds_module(cars)
+dl_cars <- dataloader(ds_cars, batch_size = 10, shuffle = TRUE)
 
 dl_cars |>
   dataloader_make_iter() |>
@@ -313,13 +315,6 @@ net <- nn_module(
 #?nn_cross_entropy_loss()
 #?nn_nll_loss
 
-# - tokenizadores e embeddings
-# - RNN (Recurrent Neural Networks)
-# -- gru
-# -- lstm
-# - aplicação com séries temporais
-# - aplicação com texto
-
 fitted <- net |>
   luz::setup(
     loss = nn_cross_entropy_loss(),
@@ -331,7 +326,8 @@ fitted <- net |>
   luz::fit(
     train_dl,
     epochs = 2,
-    valid_data = valid_dl
+    valid_data = valid_dl,
+    accelerator = luz::accelerator(cpu = TRUE)
   )
 
 preds <- predict(fitted, valid_dl)
