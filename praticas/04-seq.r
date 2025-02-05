@@ -96,14 +96,12 @@ net <- model(vocab_size, embedding_dim)
 output <- net(input_sequences)
 
 dim(output)
-output[1,..]
+output[2,..]
 
 ## Vamos fazer o mesmo usando o pacote {tok} ------------------------------
 
-## ESSE PACOTE AINDA NÃO ESTÁ COMPLETO E DOCUMENTADO
-
+# pak::pak("mlverse/tok")
 tokenizer <- tok::tokenizer
-
 tok <- tokenizer$from_pretrained("bert-base-uncased")
 tok$encode(frases[1])$ids
 tok$encode(frases[2])$ids
@@ -336,10 +334,9 @@ model <- model |>
 
 # Learning Rate finder: novidade do Luz
 rates_and_losses <- model |>
-  lr_finder(train_dl, start_lr = 1e-3, end_lr = 1)
+  lr_finder(train_dl, start_lr = 1e-3, end_lr = 1, accelerator = luz::accelerator(cpu = TRUE))
 
 rates_and_losses |> plot()
-
 
 fitted <- model |>
   fit(
@@ -357,7 +354,8 @@ fitted <- model |>
         call_on = "on_batch_end"
       )
     ),
-    verbose = TRUE
+    verbose = TRUE,
+    accelerator = luz::accelerator(cpu = TRUE)
   )
 
 luz::luz_save(fitted, "dados/lstm_demand.pt")
@@ -378,7 +376,7 @@ viz_ds <- demand_dataset(demand_viz_matrix, n_timesteps)
 viz_dl <- viz_ds |>
   dataloader(batch_size = length(viz_ds))
 
-preds <- predict(fitted, viz_dl)
+preds <- predict(fitted, viz_dl, accelerator = luz::accelerator(cpu = TRUE))
 preds <- preds$to(device = "cpu") |>
   as.matrix()
 
